@@ -1,2 +1,3 @@
-# unga_bunga
-Implementation of SVM on tweets
+# Requirements
+
+* Python (3.12)

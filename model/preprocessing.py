@@ -1,6 +1,7 @@
 import pandas as pd
 import spacy
 import re
+from tqdm import tqdm
 
 # Load the data from the CSV file
 data_path = '/Users/viktorkotuliak/Projects/unga_bunga/data/cyberbullying_tweets.csv'
@@ -21,7 +22,14 @@ def preprocess_tweet(tweet):
     return " ".join(tokens)
 
 # Apply preprocessing to all tweets
-data['processed_tweet'] = data['tweet_text'].head(10).apply(preprocess_tweet)
+# data['processed_tweet'] = data['tweet_text'].apply(preprocess_tweet)
+tqdm.pandas()
+data['processed_tweet'] = data['tweet_text'].progress_apply(preprocess_tweet)
+
+# Save the processed tweets and their corresponding cyberbullying type to a new CSV file
+output_path = '/Users/viktorkotuliak/Projects/unga_bunga/data/processed_cyberbullying_tweets.csv'
+data[['processed_tweet', 'cyberbullying_type']].to_csv(output_path, index=False)
+# Apply preprocessing to all tweets with a progress bar
 
 for i in range(5):
     print(data['tweet_text'][i])

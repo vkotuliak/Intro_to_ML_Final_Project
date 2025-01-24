@@ -1,6 +1,4 @@
 scikit-learn
 pandas
 numpy
-nltk
 spacy
-better_profanity

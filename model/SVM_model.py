@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, hamming_loss, f1_score, precision_score, recall_score
 
 # Import data
 df_test = pd.read_csv("data/test_data.csv")
@@ -34,9 +34,12 @@ x_test_tfidf = Vectorizer.transform(x_test.values.astype('U'))
 x_val_tfidf = Vectorizer.transform(x_val.values.astype('U'))
 
 # The SVM model
-SVM = SVC()
+SVM = SVC(kernel="linear")
 SVM.fit(x_train_tfidf, y_train)
 
 predictions = SVM.predict(x_val_tfidf)
 
 print(accuracy_score(predictions, y_val))
+print(f1_score(predictions, y_val, average="macro"))
+print(precision_score(predictions, y_val, average="macro"))
+print(recall_score(predictions, y_val, average="macro"))

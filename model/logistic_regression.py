@@ -42,10 +42,14 @@ x_val_tfidf = Vectorizer.transform(x_val.values.astype("U"))
 
 
 # Logistic Regression model
+
 model2 = LogisticRegression(max_iter=1000)
 model2.fit(x_train_tfidf, y_train)
 predictions = model2.predict(x_val_tfidf)
 print(f"Accuracy: {accuracy_score(predictions, y_val):.4f}")
+print(f"F1 Score: {f1_score(predictions, y_val, average='macro'):.4f}")
+print(f"Precision: {precision_score(predictions, y_val, average='macro'):.4f}")
+print(f"Recall: {recall_score(predictions, y_val, average='macro'):.4f}")
 
 
 model = LogisticRegression(max_iter=1000)
